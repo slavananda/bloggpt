@@ -76,5 +76,7 @@ def generate_post_endpoint():
     else:
         return jsonify({"error": "No topic provided"}), 400
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8000)))
+# Эта строка больше не нужна:
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8000)))
+
