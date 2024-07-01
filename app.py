@@ -79,14 +79,18 @@ def generate_post_extended(topic):
 def generate_post_endpoint():
     topic = request.args.get('topic')
     if topic:
-        post = generate_post_extended(topic)
-        return jsonify(post)
+        try:
+            post = generate_post_extended(topic)
+            return jsonify(post)
+        except Exception as e:
+            return jsonify({"error": f"Failed to generate post: {str(e)}"}), 500
     else:
         return jsonify({"error": "No topic provided"}), 400
 
 # This line is no longer needed:
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8000)))
+
 
 
 
