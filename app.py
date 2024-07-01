@@ -1,10 +1,11 @@
 import os
 import openai
+import flask
 from flask import Flask, request, jsonify
 
 # Print versions of the libraries
 print(f"OpenAI version: {openai.__version__}")
-print(f"Flask version: {Flask.__version__}")
+print(f"Flask version: {flask.__version__}")
 
 app = Flask(__name__)
 
@@ -86,6 +87,7 @@ def generate_post_endpoint():
 # This line is no longer needed:
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8000)))
+
 
 
 
