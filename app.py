@@ -26,7 +26,7 @@ def generate_post(topic):
         stop=None,
         temperature=0.7,
     )
-    post_content = response_post.choices[0]["message"]["content"].strip()
+    post_content = response_post.choices[0].message["content"].strip()
     return post_content
 
 # Define the extended function to generate posts with titles and meta descriptions
@@ -44,7 +44,7 @@ def generate_post_extended(topic):
         stop=None,
         temperature=0.7,
     )
-    title = response_title.choices[0]["message"]["content"].strip()
+    title = response_title.choices[0].message["content"].strip()
 
     # Generate the meta description
     response_meta = openai.chat.completions.create(
@@ -55,7 +55,7 @@ def generate_post_extended(topic):
         stop=None,
         temperature=0.7,
     )
-    meta_description = response_meta.choices[0]["message"]["content"].strip()
+    meta_description = response_meta.choices[0].message["content"].strip()
 
     # Generate the post
     response_post = openai.chat.completions.create(
@@ -66,7 +66,7 @@ def generate_post_extended(topic):
         stop=None,
         temperature=0.7,
     )
-    post_content = response_post.choices[0]["message"]["content"].strip()
+    post_content = response_post.choices[0].message["content"].strip()
 
     # Return the result
     return {
@@ -87,11 +87,9 @@ def generate_post_endpoint():
     else:
         return jsonify({"error": "No topic provided"}), 400
 
-
 # This line is no longer needed:
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8000)))
-
 
 
 
