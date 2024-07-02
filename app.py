@@ -44,7 +44,7 @@ def generate_post_extended(topic):
         stop=None,
         temperature=0.7,
     )
-    title = response_title.choices[0]["message"]["content"].strip()
+    title = response_title.choices[0].message["content"].strip()
 
     # Generate the meta description
     response_meta = openai.chat.completions.create(
@@ -55,7 +55,7 @@ def generate_post_extended(topic):
         stop=None,
         temperature=0.7,
     )
-    meta_description = response_meta.choices[0]["message"]["content"].strip()
+    meta_description = response_meta.choices[0].message["content"].strip()
 
     # Generate the post
     response_post = openai.chat.completions.create(
@@ -66,7 +66,7 @@ def generate_post_extended(topic):
         stop=None,
         temperature=0.7,
     )
-    post_content = response_post.choices[0]["message"]["content"].strip()
+    post_content = response_post.choices[0].message["content"].strip()
 
     # Return the result
     return {
