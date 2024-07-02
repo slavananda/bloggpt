@@ -26,6 +26,8 @@ def get_recent_news(topic):
 def generate_post(topic):
     try:
         recent_news = get_recent_news(topic)
+        if not recent_news:
+            raise Exception("No recent news found")
 
         prompt_title = f"Придумайте привлекательный заголовок для поста на тему: {topic}"
         response_title = openai.chat.completions.create(
@@ -67,7 +69,7 @@ def generate_post(topic):
         }
     except Exception as e:
         print(f"Error generating post: {e}")
-        raise HTTPException(status_code=500, detail="Error generating post")
+        raise HTTPException(status_code=500, detail=f"Error generating post: {e}")
 
 @app.post("/generate-post")
 async def generate_post_api(topic: Topic):
@@ -80,8 +82,6 @@ async def heartbeat_api():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
 
 
 
