@@ -14,6 +14,7 @@ class Topic(BaseModel):
 def get_recent_news(topic):
     url = f"https://newsapi.org/v2/everything?q={topic}&apiKey=46bc7c4d105847e6a61ee7e56fdee7fa"
     response = requests.get(url)
+    response.encoding = 'utf-8'  # Явно указать кодировку
     articles = response.json()["articles"]
     recent_news = [article["title"] for article in articles[:3]]
     return "\n".join(recent_news)
