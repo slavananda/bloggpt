@@ -18,8 +18,8 @@ openai.api_key = api_key
 # Define the function to generate posts
 def generate_post(topic):
     prompt_post = f"Напишите подробный пост для блога на тему: {topic}."
-    response_post = openai.ChatCompletion.create(
-        model="gpt-4o",
+    response_post = openai.chat.completions.create(
+        model="gpt-4",
         messages=[{"role": "user", "content": prompt_post}],
         max_tokens=50,
         n=1,
@@ -36,37 +36,37 @@ def generate_post_extended(topic):
     prompt_post = f"Напишите подробный и увлекательный пост для блога на тему {topic}, используя при этом короткие абзацы, подзаголовки, примеры и ключевые слова для лучшего восприятия и SEO-оптимизации."
 
     # Generate the title
-    response_title = openai.ChatCompletion.create(
-        model="gpt-4o",
+    response_title = openai.chat.completions.create(
+        model="gpt-4",
         messages=[{"role": "user", "content": prompt_title}],
         max_tokens=100,
         n=1,
         stop=None,
         temperature=0.7,
     )
-    title = response_title.choices[0].message["content"].strip()
+    title = response_title.choices[0]["message"]["content"].strip()
 
     # Generate the meta description
-    response_meta = openai.ChatCompletion.create(
-        model="gpt-4o",
+    response_meta = openai.chat.completions.create(
+        model="gpt-4",
         messages=[{"role": "user", "content": prompt_meta}],
         max_tokens=150,
         n=1,
         stop=None,
         temperature=0.7,
     )
-    meta_description = response_meta.choices[0].message["content"].strip()
+    meta_description = response_meta.choices[0]["message"]["content"].strip()
 
     # Generate the post
-    response_post = openai.ChatCompletion.create(
-        model="gpt-4o",
+    response_post = openai.chat.completions.create(
+        model="gpt-4",
         messages=[{"role": "user", "content": prompt_post}],
         max_tokens=2048,
         n=1,
         stop=None,
         temperature=0.7,
     )
-    post_content = response_post.choices[0].message["content"].strip()
+    post_content = response_post.choices[0]["message"]["content"].strip()
 
     # Return the result
     return {
@@ -90,7 +90,6 @@ def generate_post_endpoint():
 # This line is no longer needed:
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8000)))
-
 
 
 
