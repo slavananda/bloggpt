@@ -31,7 +31,7 @@ def generate_post(topic):
         stop=None,
         temperature=0.7,
     )
-    title = response_title.choices[0].message.content.strip()
+    title = response_title['choices'][0]['message']['content'].strip()
 
     prompt_meta = f"Напишите краткое, но информативное мета-описание для поста с заголовком: {title}"
     response_meta = openai.chat.completions.create(
@@ -42,7 +42,7 @@ def generate_post(topic):
         stop=None,
         temperature=0.7,
     )
-    meta_description = response_meta.choices[0].message.content.strip()
+    meta_description = response_meta['choices'][0]['message']['content'].strip()
 
     prompt_post = f"Напишите подробный и увлекательный пост для блога на тему: {topic}, учитывая следующие последние новости:\n{recent_news}\n\nИспользуйте короткие абзацы, подзаголовки, примеры и ключевые слова для лучшего восприятия и SEO-оптимизации."
     response_post = openai.chat.completions.create(
@@ -53,7 +53,7 @@ def generate_post(topic):
         stop=None,
         temperature=0.7,
     )
-    post_content = response_post.choices[0].message.content.strip()
+    post_content = response_post['choices'][0]['message']['content'].strip()
 
     return {
         "title": title,
@@ -65,6 +65,7 @@ def generate_post(topic):
 async def generate_post_api(topic: Topic):
     generated_post = generate_post(topic.topic)
     return generated_post
+
 @app.post("/heartbeat")
 async def heartbeat_api():
     return "OK"
@@ -72,6 +73,7 @@ async def heartbeat_api():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
 
 
 
